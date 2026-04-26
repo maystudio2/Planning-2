@@ -56,16 +56,17 @@
             margin-bottom: 2.5rem;
             border: 1px solid #e2e8f0;
             break-inside: avoid;
+            page-break-inside: avoid;
         }
 
         h2 {
-            break-after: avoid; /* 제목 바로 뒤에 페이지가 넘어가는 것 방지 */
+            break-after: avoid;
         }
 
         @media print {
             @page {
                 size: A4;
-                margin: 10mm 15mm;
+                margin: 15mm 15mm;
             }
             body { 
                 background-color: white; 
@@ -80,32 +81,47 @@
                 padding: 0 !important; 
             }
             header { 
-                margin-bottom: 1.5rem !important; 
+                margin-bottom: 2rem !important; 
                 padding: 2.5rem 1rem !important;
                 border: 1px solid #e2e8f0 !important;
                 box-shadow: none !important;
-                page-break-after: auto;
             }
+            
+            /* 가로 레이아웃이 깨지는 것을 방지 */
+            .flex-row-print {
+                display: flex !important;
+                flex-direction: row !important;
+                gap: 2rem !important;
+                align-items: flex-start !important;
+            }
+            
+            .w-5-12-print {
+                width: 41.666667% !important;
+            }
+            
+            .w-7-12-print {
+                width: 58.333333% !important;
+            }
+
             .content-box { 
                 box-shadow: none !important; 
                 border: 1px solid #cbd5e1 !important;
-                margin-bottom: 20px !important;
+                margin-bottom: 25px !important;
                 padding: 1.5rem !important;
+                break-inside: avoid;
                 page-break-inside: avoid;
             }
+
             h2 { 
-                margin-top: 1.5rem !important;
+                margin-top: 1rem !important;
                 margin-bottom: 1rem !important;
-                page-break-before: auto; /* 강제 넘김 해제하여 밀림 방지 */
                 break-after: avoid;
             }
-            /* 섹션이 너무 아래에 있으면 통째로 다음 페이지로 */
-            section {
-                page-break-inside: auto;
-            }
+            
             .ref-image-box {
                 border: 1px dashed #94a3b8 !important;
-                height: 250px !important; /* 인쇄 시 높이 최적화 */
+                height: 220px !important;
+                aspect-ratio: auto !important;
             }
         }
     </style>
@@ -143,14 +159,14 @@
             </h2>
             
             <div class="content-box">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="w-full md:w-5/12 space-y-4">
+                <div class="flex flex-col md:flex-row flex-row-print gap-8">
+                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12 flex flex-col justify-between">
+                    <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-between">
                         <div>
                             <span class="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold mb-3">Episode 01</span>
                             <h3 class="text-2xl font-black mb-4">잠든 담당자의 '입' (코믹 홍보)</h3>
@@ -166,14 +182,14 @@
             </div>
 
             <div class="content-box">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="w-full md:w-5/12 space-y-4">
+                <div class="flex flex-col md:flex-row flex-row-print gap-8">
+                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12">
+                    <div class="w-full md:w-7/12 w-7-12-print">
                         <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold mb-3">Episode 02</span>
                         <h3 class="text-2xl font-black mb-4">0원으로 마케팅하는 법?</h3>
                         <p class="text-slate-600 text-sm mb-6">담당자가 직접 발로 뛰며 경남 곳곳에 포스터를 부착하는 리얼리티 숏폼</p>
@@ -193,14 +209,14 @@
             </h2>
             
             <div class="content-box">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="w-full md:w-5/12 space-y-4">
+                <div class="flex flex-col md:flex-row flex-row-print gap-8">
+                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12">
+                    <div class="w-full md:w-7/12 w-7-12-print">
                         <span class="inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs font-bold mb-3">Episode 03</span>
                         <h3 class="text-2xl font-black mb-4">쿵쿵! 점프 트랜지션</h3>
                         <p class="text-slate-600 text-sm mb-6">화면이 물리적으로 내려오는 연출을 통한 정보 전달</p>
@@ -212,11 +228,11 @@
             </div>
 
             <div class="content-box">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="w-full md:w-5/12 space-y-4">
+                <div class="flex flex-col md:flex-row flex-row-print gap-8">
+                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
                         <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                     </div>
-                    <div class="w-full md:w-7/12">
+                    <div class="w-full md:w-7/12 w-7-12-print">
                         <span class="inline-block px-3 py-1 bg-slate-900 text-white rounded-full text-xs font-bold mb-3">Episode 04</span>
                         <h3 class="text-2xl font-black mb-4">경남 청춘의 기록 (B-roll)</h3>
                         <p class="text-slate-600 text-sm mb-6">진정성 있는 응원 메시지를 담은 고퀄리티 영상미</p>
@@ -236,11 +252,11 @@
             </h2>
             
             <div class="content-box">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="w-full md:w-5/12 space-y-4">
+                <div class="flex flex-col md:flex-row flex-row-print gap-8">
+                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
                         <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                     </div>
-                    <div class="w-full md:w-7/12">
+                    <div class="w-full md:w-7/12 w-7-12-print">
                         <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold mb-3">Episode 05</span>
                         <h3 class="text-2xl font-black mb-4">우주항공의 '하늘 자막'</h3>
                         <p class="text-slate-600 text-sm mb-6">트래킹 자막을 활용한 미래지향적 연출</p>
@@ -252,14 +268,14 @@
             </div>
 
             <div class="content-box">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="w-full md:w-5/12 space-y-4">
+                <div class="flex flex-col md:flex-row flex-row-print gap-8">
+                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12">
+                    <div class="w-full md:w-7/12 w-7-12-print">
                         <span class="inline-block px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-xs font-bold mb-3">Episode 06</span>
                         <h3 class="text-2xl font-black mb-4">농부의 검색기록</h3>
                         <p class="text-slate-600 text-sm mb-6">스마트폰 검색창 설정을 통한 핵심 키워드 노출</p>
@@ -279,14 +295,14 @@
             </h2>
             
             <div class="content-box">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="w-full md:w-5/12 space-y-4">
+                <div class="flex flex-col md:flex-row flex-row-print gap-8">
+                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12">
+                    <div class="w-full md:w-7/12 w-7-12-print">
                         <span class="inline-block px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold mb-3">Episode 07</span>
                         <h3 class="text-2xl font-black mb-4">Only You! 지목 챌린지</h3>
                         <p class="text-slate-600 text-sm mb-6">시청자를 직접 지목하는 강렬한 피날레</p>
@@ -298,14 +314,14 @@
             </div>
 
             <div class="content-box">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="w-full md:w-5/12 space-y-4">
+                <div class="flex flex-col md:flex-row flex-row-print gap-8">
+                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12">
+                    <div class="w-full md:w-7/12 w-7-12-print">
                         <span class="inline-block px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-xs font-bold mb-3">Episode 08</span>
                         <h3 class="text-2xl font-black mb-4">담당자의 번아웃 (비하인드)</h3>
                         <p class="text-slate-600 text-sm mb-6">친근감을 높이는 메이킹 및 비하인드 씬</p>
