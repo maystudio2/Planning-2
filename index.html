@@ -14,10 +14,11 @@
             background-color: #f1f5f9;
             color: #1e293b;
             line-height: 1.6;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
-        .black-han { font-family: 'Black Han Sans', sans-serif; }
         
-        .page-break { page-break-after: always; }
+        .page-break { page-break-before: always; }
         
         .diary-sticker {
             position: absolute;
@@ -60,21 +61,49 @@
             padding: 2.5rem;
             margin-bottom: 2.5rem;
             border: 1px solid #e2e8f0;
+            break-inside: avoid; /* 인쇄 시 박스 중간 잘림 방지 */
         }
 
         @media print {
-            body { background-color: white; padding: 0; margin: 0; }
-            .no-print { display: none; }
-            .container { width: 100%; max-width: none; margin: 0; padding: 0; }
-            .content-box { 
-                box-shadow: none; 
-                border: 1px solid #e2e8f0; 
-                break-inside: avoid;
-                margin-bottom: 40px;
-                padding: 2rem;
+            @page {
+                size: A4;
+                margin: 15mm;
             }
-            header { margin-bottom: 3rem !important; padding: 4rem !important; }
-            h2 { margin-top: 1rem !important; }
+            body { 
+                background-color: white; 
+                padding: 0; 
+                margin: 0; 
+            }
+            .no-print { display: none; }
+            .container { 
+                width: 100% !important; 
+                max-width: none !important; 
+                margin: 0 !important; 
+                padding: 0 !important; 
+            }
+            .content-box { 
+                box-shadow: none !important; 
+                border: 1px solid #cbd5e1 !important;
+                margin-bottom: 30px !important;
+                padding: 2rem !important;
+                page-break-inside: avoid;
+            }
+            header { 
+                margin-bottom: 2rem !important; 
+                padding: 3rem 1rem !important;
+                border: 2px solid #e2e8f0 !important;
+                box-shadow: none !important;
+            }
+            .ref-image-box {
+                border: 1px dashed #94a3b8 !important;
+            }
+            h2 { 
+                margin-top: 0 !important;
+                page-break-before: always; /* 각 주차 섹션 시작 시 새 페이지 */
+            }
+            h2:first-of-type {
+                page-break-before: auto; /* 첫 번째 제목은 제외 */
+            }
         }
     </style>
 </head>
@@ -104,14 +133,13 @@
             </div>
             
             <div class="no-print">
+                <p class="text-xs text-slate-400 mb-4">* PDF 저장 시 '배경 그래픽' 옵션을 체크해 주세요.</p>
                 <button onclick="window.print()" class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">PDF로 저장 및 인쇄하기</button>
             </div>
         </header>
 
-        <div class="page-break"></div>
-
         <!-- 1주차 섹션 -->
-        <section class="mb-20">
+        <section class="mb-12">
             <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-blue-600 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 01</span>
                 캠페인 런칭 및 인지도 확산
@@ -141,7 +169,7 @@
                             </div>
                         </div>
                         <div class="text-xs text-slate-500 space-y-1 border-t pt-4">
-                            <p><strong>• 출연:</strong> 경상남도청 청년정책과 담당자 2명 (수면자 / 촬영자)</p>
+                            <p><strong>• 출연:</strong> 경상남도청 청년정책과 담당자 2명</p>
                             <p><strong>• 연출:</strong> 클로즈업 및 입 모양 합성 편집을 통한 몰입감 증대</p>
                         </div>
                     </div>
@@ -169,17 +197,15 @@
                         </div>
                         <div class="text-xs text-slate-500 space-y-1 border-t pt-4">
                             <p><strong>• 연출:</strong> 비트에 맞춘 0.5초 단위 스티치(Stitch) 편집</p>
-                            <p><strong>• 배경음악:</strong> 경쾌하고 속도감 있는 시티팝 혹은 로파이 비트</p>
+                            <p><strong>• 배경음악:</strong> 경쾌하고 속도감 있는 시티팝 비트</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="page-break"></div>
-
         <!-- 2주차 섹션 -->
-        <section class="mb-20">
+        <section class="mb-12">
             <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-pink-500 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 02</span>
                 혜택 소구 및 감성 공감
@@ -204,13 +230,13 @@
                                 <h4 class="text-xs font-black text-pink-400 mb-2 uppercase">Main Caption</h4>
                                 <p class="text-lg font-black text-pink-900 leading-tight">
                                     경남 청년 성공&성장 스토리 콘테스트<br>
-                                    <span class="text-pink-600 text-base">7월 31일까지 모집 중! 지금 바로 신청하세요!</span>
+                                    <span class="text-pink-600 text-base">7월 31일까지 모집 중!</span>
                                 </p>
                             </div>
                         </div>
                         <div class="text-xs text-slate-500 space-y-1 border-t pt-4">
                             <p><strong>• 출연:</strong> 김소미 대표 (통영 고양이회관)</p>
-                            <p><strong>• 포인트:</strong> 바닥에 착지하는 '쿵' 소리와 함께 자막이 툭 떨어지는 효과음 삽입</p>
+                            <p><strong>• 포인트:</strong> 바닥 착지 시 '쿵' 효과음과 자막 드롭 타이밍 동기화</p>
                         </div>
                     </div>
                 </div>
@@ -232,14 +258,13 @@
                             <p class="text-slate-600 text-sm leading-relaxed mb-6">청년들의 삶을 향한 헌사와 진정성 있는 응원 메시지를 고퀄리티 영상미와 함께 전달하여 대회의 브랜드 품격을 높입니다.</p>
                             
                             <div class="bg-slate-900 p-6 rounded-2xl mb-6">
-                                <h4 class="text-xs font-black text-slate-500 mb-2 uppercase">Narration (Deep & Emotional)</h4>
                                 <p class="text-sm leading-relaxed text-slate-300 italic">
-                                    "우리는 누구나 각자의 속도로 꿈을 향해 걷고 있습니다. 때로는 흔들리고 때로는 막막하겠지만, 경남의 하늘 아래에서 치열하게 고민하며 살아가는 여러분의 그 모든 과정이 이미 하나의 위대한 스토리입니다. 여러분이 묵묵히 쌓아온 그 소중한 시간들이 더 넓은 세상과 연결될 수 있도록, 경남이 함께하겠습니다. 당신의 진심이 담긴 기록을 기다립니다."
+                                    "우리는 누구나 각자의 속도로 꿈을 향해 걷고 있습니다. 경남의 하늘 아래에서 치열하게 고민하며 살아가는 여러분의 그 모든 과정이 이미 하나의 위대한 스토리입니다."
                                 </p>
                             </div>
                         </div>
                         <div class="text-xs text-slate-500 space-y-1 border-t pt-4">
-                            <p><strong>• 장소:</strong> 경남 내 주요 거점 3개소 (사천, 통영, 밀양 등)</p>
+                            <p><strong>• 장소:</strong> 경남 내 주요 거점 3개소</p>
                             <p><strong>• 연출:</strong> 필름 그레인 효과 및 오디오 디스토션 필터 활용</p>
                         </div>
                     </div>
@@ -247,10 +272,8 @@
             </div>
         </section>
 
-        <div class="page-break"></div>
-
         <!-- 3주차 섹션 -->
-        <section class="mb-20">
+        <section class="mb-12">
             <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-indigo-600 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 03</span>
                 전략적 타겟 및 정보 강조
@@ -273,7 +296,6 @@
                             
                             <div class="bg-indigo-900 p-8 rounded-2xl text-center mb-6">
                                 <p class="text-lg font-black text-white mb-2 tracking-tighter">"내가 ( ) 경남 청년이다"</p>
-                                <p class="text-xs text-indigo-300 mb-3">경남 청년 성공&성장 스토리 콘테스트</p>
                                 <p class="text-xl font-black text-yellow-400">대상 상금 500만 원 / 방송 출연</p>
                             </div>
                         </div>
@@ -301,32 +323,25 @@
                             <p class="text-slate-600 text-sm leading-relaxed mb-6">검색 기록 노출이라는 유머러스한 설정을 통해 시청자가 궁금해할 만한 핵심 키워드 8개를 자연스럽게 노출합니다.</p>
                             
                             <div class="bg-amber-50 p-6 rounded-2xl border-2 border-amber-200 mb-6">
-                                <h4 class="text-xs font-black text-amber-500 mb-3 uppercase">Search History (Top 8)</h4>
                                 <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-sm font-bold text-amber-900">
                                     <div class="flex items-center gap-2"><span class="text-xs text-amber-300">1</span> 경남 청년</div>
                                     <div class="flex items-center gap-2"><span class="text-xs text-amber-300">2</span> 500만원 받는 법</div>
-                                    <div class="flex items-center gap-2"><span class="text-xs text-amber-300">3</span> 성공&성장스토리콘테스트</div>
-                                    <div class="flex items-center gap-2"><span class="text-xs text-amber-300">4</span> 경남 귀촌하는 법</div>
-                                    <div class="flex items-center gap-2"><span class="text-xs text-amber-300">5</span> 퍼스널 브랜딩 기회</div>
-                                    <div class="flex items-center gap-2"><span class="text-xs text-amber-300">6</span> 경남 청년 상금 확대</div>
-                                    <div class="flex items-center gap-2"><span class="text-xs text-amber-300">7</span> 갓생 사는 청년들</div>
-                                    <div class="flex items-center gap-2"><span class="text-xs text-amber-300">8</span> 콘테스트 신청 기간</div>
+                                    <div class="flex items-center gap-2"><span class="text-xs text-amber-300">3</span> 성공&성장스토리</div>
+                                    <div class="flex items-center gap-2"><span class="text-xs text-amber-300">4</span> 경남 귀촌</div>
                                 </div>
                             </div>
                         </div>
                         <div class="text-xs text-slate-500 space-y-1 border-t pt-4">
-                            <p><strong>• 출연:</strong> 경남 청년 농부 (스마트팜 혹은 들판)</p>
-                            <p><strong>• 연출:</strong> 스마트폰 화면으로의 빠른 줌인(Zoom-in) 효과</p>
+                            <p><strong>• 출연:</strong> 경남 청년 농부</p>
+                            <p><strong>• 연출:</strong> 스마트폰 화면으로의 빠른 줌인 효과</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="page-break"></div>
-
         <!-- 4주차 섹션 -->
-        <section class="mb-20">
+        <section class="mb-12">
             <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-slate-800 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 04</span>
                 참여 마무리 및 비하인드
@@ -345,15 +360,15 @@
                         <div>
                             <span class="inline-block px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold mb-3">Episode 07</span>
                             <h3 class="text-2xl font-black mb-4">Only You! 지목 챌린지</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">콘텐츠 출연진들이 교차로 등장하여 'Only You' 음악에 맞춰 시청자를 지목하며 대회의 주인공이 바로 본인임을 상기시킵니다.</p>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">출연진들이 교차로 등장하여 'Only You' 음악에 맞춰 시청자를 지목하며 주인공이 바로 본인임을 상기시킵니다.</p>
                             
                             <div class="bg-red-50 p-8 rounded-2xl text-center mb-6 border-2 border-red-100">
-                                <p class="text-xl font-black text-red-600">"성공&성장 스토리 콘테스트 신청할<br>경남 청년, 바로 너!"</p>
+                                <p class="text-xl font-black text-red-600">"콘테스트 신청할 주인공,<br>바로 너!"</p>
                             </div>
                         </div>
                         <div class="text-xs text-slate-500 space-y-1 border-t pt-4">
-                            <p><strong>• 출연:</strong> 우주항공 연구원, 김소미 대표, 청년 농부 (3인 교차 편집)</p>
-                            <p><strong>• 포인트:</strong> 중독성 있는 후크송을 활용한 짧고 강렬한 메시지 전달</p>
+                            <p><strong>• 출연:</strong> 전 출연진 교차 편집</p>
+                            <p><strong>• 포인트:</strong> 중독성 있는 후크송을 활용한 강렬한 피날레</p>
                         </div>
                     </div>
                 </div>
@@ -372,30 +387,30 @@
                         <div>
                             <span class="inline-block px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-xs font-bold mb-3">Episode 08</span>
                             <h3 class="text-2xl font-black mb-4">담당자의 번아웃 (비하인드)</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">홍보를 위해 망가짐을 불사한 담당자의 노력을 비하인드 씬으로 보여주며, 시청자들의 공감과 응원을 유도하여 호감도를 높입니다.</p>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">홍보를 위해 망가짐을 불사한 담당자의 노력을 비하인드 씬으로 보여주며 응원을 유도하여 호감도를 높입니다.</p>
                             
                             <div class="bg-slate-50 p-6 rounded-2xl italic text-slate-500 text-sm leading-relaxed mb-6">
-                                "기획만 잘하면 성공할 줄 알았는데... 릴스에서 춤도 추고 이상한 연기까지 해야 하는 걸 알았을 때 😂"
+                                "기획만 잘하면 성공할 줄 알았는데... 연기까지 해야 하는 걸 알았을 때 😂"
                             </div>
                         </div>
                         <div class="text-xs text-slate-500 space-y-1 border-t pt-4">
-                            <p><strong>• 배경:</strong> 경상남도청 비상계단 (포스터를 몸에 붙인 채 넋이 나간 상태)</p>
-                            <p><strong>• 연출:</strong> 애처롭지만 유머러스한 배경음악과 표정 연기의 대비</p>
+                            <p><strong>• 배경:</strong> 경상남도청 비상계단</p>
+                            <p><strong>• 연출:</strong> 유머러스한 배경음악과 대비되는 표정 연기</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 푸터 (기관 정보 및 카피라이트) -->
-        <footer class="mt-20 pt-10 border-t-2 border-slate-200 flex flex-col md:flex-row justify-between items-center text-slate-400 pb-20">
+        <!-- 푸터 -->
+        <footer class="mt-12 pt-10 border-t-2 border-slate-200 flex flex-col md:flex-row justify-between items-center text-slate-400 pb-20">
             <div class="text-center md:text-left mb-4 md:mb-0">
-                <p class="text-sm font-black text-slate-600 uppercase tracking-tighter">MAY STUDIO & GYEONGNAM PROVINCE</p>
+                <p class="text-sm font-black text-slate-600 uppercase">MAY STUDIO & GYEONGNAM PROVINCE</p>
                 <p class="text-[10px] uppercase tracking-widest">Digital Content Strategy & Production</p>
             </div>
             <div class="text-[10px] text-center md:text-right">
                 <p>본 제작 기획안의 권한은 메이스튜디오와 경상남도청 청년정책과에 있습니다.</p>
-                <p>무단 복제 및 외부 유출을 금합니다. ⓒ 2026 MAY STUDIO</p>
+                <p>ⓒ 2026 MAY STUDIO</p>
             </div>
         </footer>
     </div>
