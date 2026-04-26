@@ -59,14 +59,10 @@
             page-break-inside: avoid;
         }
 
-        h2 {
-            break-after: avoid;
-        }
-
         @media print {
             @page {
                 size: A4;
-                margin: 15mm 15mm;
+                margin: 0; /* 커스텀 여백을 위해 0으로 설정 후 내부 padding 조절 */
             }
             body { 
                 background-color: white; 
@@ -74,20 +70,25 @@
                 margin: 0; 
             }
             .no-print { display: none; }
-            .container { 
-                width: 100% !important; 
-                max-width: none !important; 
-                margin: 0 !important; 
-                padding: 0 !important; 
-            }
-            header { 
-                margin-bottom: 2rem !important; 
-                padding: 2.5rem 1rem !important;
-                border: 1px solid #e2e8f0 !important;
-                box-shadow: none !important;
-            }
             
-            /* 가로 레이아웃이 깨지는 것을 방지 */
+            /* 첫 페이지 (타이틀) */
+            header {
+                height: 100vh !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                page-break-after: always !important;
+            }
+
+            /* 콘텐츠 시작 페이지 */
+            .main-content {
+                padding: 20mm 15mm !important;
+            }
+
             .flex-row-print {
                 display: flex !important;
                 flex-direction: row !important;
@@ -95,87 +96,71 @@
                 align-items: flex-start !important;
             }
             
-            .w-5-12-print {
-                width: 41.666667% !important;
-            }
-            
-            .w-7-12-print {
-                width: 58.333333% !important;
-            }
+            .w-5-12-print { width: 41.666667% !important; }
+            .w-7-12-print { width: 58.333333% !important; }
 
             .content-box { 
                 box-shadow: none !important; 
                 border: 1px solid #cbd5e1 !important;
-                margin-bottom: 25px !important;
                 padding: 1.5rem !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-
-            h2 { 
-                margin-top: 1rem !important;
-                margin-bottom: 1rem !important;
-                break-after: avoid;
             }
             
             .ref-image-box {
                 border: 1px dashed #94a3b8 !important;
-                height: 220px !important;
+                height: 200px !important;
                 aspect-ratio: auto !important;
             }
         }
     </style>
 </head>
-<body class="p-4 md:p-12">
+<body class="p-0">
 
-    <div class="max-w-5xl mx-auto container">
-        <!-- 메인 헤더 -->
-        <header class="text-center mb-16 relative py-16 bg-white rounded-[3rem] shadow-xl border-4 border-white overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
-            <div class="diary-sticker -top-2 left-12 text-blue-700">제작 기획서</div>
-            
-            <p class="text-blue-600 font-black tracking-widest mb-4">2026 GYEONGNAM YOUTH CONTEST</p>
-            <h1 class="text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
-                숏폼 홍보 영상<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">제작 세부 기획안</span>
-            </h1>
+    <!-- [PAGE 1] 메인 헤더 (인쇄 시 단독 페이지) -->
+    <header class="text-center relative py-20 md:py-32 bg-white md:rounded-[3rem] md:shadow-xl md:border-4 border-white overflow-hidden md:m-12">
+        <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+        <div class="diary-sticker -top-2 left-12 text-blue-700">제작 기획서</div>
+        
+        <p class="text-blue-600 font-black tracking-widest mb-6 text-lg">2026 GYEONGNAM YOUTH CONTEST</p>
+        <h1 class="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tight leading-tight px-4">
+            숏폼 홍보 영상<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">제작 세부 기획안</span>
+        </h1>
 
-            <div class="grid grid-cols-2 max-w-sm mx-auto text-sm border-t border-b border-slate-100 py-4 mb-8">
-                <div class="text-slate-400 border-r border-slate-100">수행기관</div>
-                <div class="font-bold text-slate-700">메이스튜디오 (May Studio)</div>
-                <div class="text-slate-400 border-r border-slate-100">수신처</div>
-                <div class="font-bold text-slate-700">경상남도청 청년정책과</div>
-            </div>
-            
-            <div class="no-print">
-                <button onclick="window.print()" class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">PDF 저장하기</button>
-            </div>
-        </header>
+        <div class="grid grid-cols-2 max-w-md mx-auto text-base border-t border-b border-slate-100 py-6 mb-12 px-6">
+            <div class="text-slate-400 border-r border-slate-100 py-1">수행기관</div>
+            <div class="font-bold text-slate-700 py-1 text-right">메이스튜디오 (May Studio)</div>
+            <div class="text-slate-400 border-r border-slate-100 py-1">수신처</div>
+            <div class="font-bold text-slate-700 py-1 text-right">경상남도청 청년정책과</div>
+        </div>
+        
+        <div class="no-print">
+            <button onclick="window.print()" class="bg-blue-600 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-700 transition shadow-xl shadow-blue-200 text-lg">PDF 저장하기</button>
+        </div>
+    </header>
 
+    <!-- [PAGE 2] 본문 시작 -->
+    <div class="max-w-5xl mx-auto main-content px-6 md:px-0">
+        
         <!-- 1주차 섹션 -->
-        <section class="mb-12">
-            <h2 class="text-3xl font-black mb-6 flex items-center gap-3 text-slate-800">
+        <section class="mb-16">
+            <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-blue-600 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 01</span>
                 캠페인 런칭 및 인지도 확산
             </h2>
             
             <div class="content-box">
                 <div class="flex flex-col md:flex-row flex-row-print gap-8">
-                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
+                    <div class="w-full md:w-5/12 w-5-12-print">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-between">
-                        <div>
-                            <span class="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold mb-3">Episode 01</span>
-                            <h3 class="text-2xl font-black mb-4">잠든 담당자의 '입' (코믹 홍보)</h3>
-                            <p class="text-slate-600 text-sm mb-6 italic">업무 중 잠든 담당자의 입 위에 위트 있는 합성 편집</p>
-                            <div class="bg-blue-50 p-5 rounded-2xl border-l-8 border-blue-500">
-                                <p class="text-sm font-medium leading-relaxed text-blue-900">
-                                    "상금 500만 원, 방송 출연 기회까지! 경남 청년이라면 지금 신청하세요!"
-                                </p>
-                            </div>
+                    <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
+                        <span class="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 01</span>
+                        <h3 class="text-2xl font-black mb-4">잠든 담당자의 '입' (코믹 홍보)</h3>
+                        <p class="text-slate-600 text-sm mb-6 italic">업무 중 잠든 담당자의 입 위에 위트 있는 합성 편집</p>
+                        <div class="bg-blue-50 p-5 rounded-2xl border-l-8 border-blue-500">
+                            <p class="text-sm font-medium leading-relaxed text-blue-900">"상금 500만 원, 방송 출연 기회까지! 경남 청년이라면 지금 신청하세요!"</p>
                         </div>
                     </div>
                 </div>
@@ -183,14 +168,14 @@
 
             <div class="content-box">
                 <div class="flex flex-col md:flex-row flex-row-print gap-8">
-                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
+                    <div class="w-full md:w-5/12 w-5-12-print">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12 w-7-12-print">
-                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold mb-3">Episode 02</span>
+                    <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
+                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 02</span>
                         <h3 class="text-2xl font-black mb-4">0원으로 마케팅하는 법?</h3>
                         <p class="text-slate-600 text-sm mb-6">담당자가 직접 발로 뛰며 경남 곳곳에 포스터를 부착하는 리얼리티 숏폼</p>
                         <div class="bg-slate-100 p-8 rounded-2xl text-center">
@@ -202,26 +187,27 @@
         </section>
 
         <!-- 2주차 섹션 -->
-        <section class="mb-12">
-            <h2 class="text-3xl font-black mb-6 flex items-center gap-3 text-slate-800">
+        <section class="mb-16">
+            <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-pink-500 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 02</span>
                 혜택 소구 및 감성 공감
             </h2>
             
+            <!-- 위치 변경됨: 담당자의 번아웃 -->
             <div class="content-box">
                 <div class="flex flex-col md:flex-row flex-row-print gap-8">
-                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
+                    <div class="w-full md:w-5/12 w-5-12-print">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12 w-7-12-print">
-                        <span class="inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs font-bold mb-3">Episode 03</span>
-                        <h3 class="text-2xl font-black mb-4">쿵쿵! 점프 트랜지션</h3>
-                        <p class="text-slate-600 text-sm mb-6">화면이 물리적으로 내려오는 연출을 통한 정보 전달</p>
-                        <div class="bg-pink-50 p-6 rounded-2xl text-center border-l-8 border-pink-500">
-                            <p class="text-lg font-black text-pink-900">7월 31일 모집 마감!</p>
+                    <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
+                        <span class="inline-block px-3 py-1 bg-slate-900 text-white rounded-full text-xs font-bold mb-3 w-fit">Episode 03 (Humanity)</span>
+                        <h3 class="text-2xl font-black mb-4">담당자의 번아웃 (현실 고증)</h3>
+                        <p class="text-slate-600 text-sm mb-6 italic">공공기관 담당자의 인간적인 면모를 보여주며 친근감 형성</p>
+                        <div class="bg-slate-900 p-6 rounded-2xl">
+                            <p class="text-sm text-slate-300 italic">"편집하다 밤샜어요... 하지만 여러분만 신청하신다면 전 괜찮습니다!"</p>
                         </div>
                     </div>
                 </div>
@@ -229,15 +215,18 @@
 
             <div class="content-box">
                 <div class="flex flex-col md:flex-row flex-row-print gap-8">
-                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
-                        <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
+                    <div class="w-full md:w-5/12 w-5-12-print">
+                        <div class="ref-grid">
+                            <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
+                            <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
+                        </div>
                     </div>
-                    <div class="w-full md:w-7/12 w-7-12-print">
-                        <span class="inline-block px-3 py-1 bg-slate-900 text-white rounded-full text-xs font-bold mb-3">Episode 04</span>
-                        <h3 class="text-2xl font-black mb-4">경남 청춘의 기록 (B-roll)</h3>
-                        <p class="text-slate-600 text-sm mb-6">진정성 있는 응원 메시지를 담은 고퀄리티 영상미</p>
-                        <div class="bg-slate-900 p-6 rounded-2xl">
-                            <p class="text-sm text-slate-300 italic">"여러분의 모든 과정이 하나의 스토리입니다."</p>
+                    <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
+                        <span class="inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 04</span>
+                        <h3 class="text-2xl font-black mb-4">쿵쿵! 점프 트랜지션</h3>
+                        <p class="text-slate-600 text-sm mb-6">화면이 물리적으로 내려오는 연출을 통한 핵심 혜택 강조</p>
+                        <div class="bg-pink-50 p-6 rounded-2xl text-center border-l-8 border-pink-500">
+                            <p class="text-lg font-black text-pink-900">7월 31일 모집 마감!</p>
                         </div>
                     </div>
                 </div>
@@ -245,21 +234,21 @@
         </section>
 
         <!-- 3주차 섹션 -->
-        <section class="mb-12">
-            <h2 class="text-3xl font-black mb-6 flex items-center gap-3 text-slate-800">
+        <section class="mb-16">
+            <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-indigo-600 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 03</span>
                 전략적 타겟 및 정보 강조
             </h2>
             
             <div class="content-box">
                 <div class="flex flex-col md:flex-row flex-row-print gap-8">
-                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
+                    <div class="w-full md:w-5/12 w-5-12-print">
                         <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                     </div>
-                    <div class="w-full md:w-7/12 w-7-12-print">
-                        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold mb-3">Episode 05</span>
+                    <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
+                        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 05</span>
                         <h3 class="text-2xl font-black mb-4">우주항공의 '하늘 자막'</h3>
-                        <p class="text-slate-600 text-sm mb-6">트래킹 자막을 활용한 미래지향적 연출</p>
+                        <p class="text-slate-600 text-sm mb-6">트래킹 자막을 활용한 미래지향적 연출 및 상금 소구</p>
                         <div class="bg-indigo-900 p-8 rounded-2xl text-center">
                             <p class="text-lg font-black text-white">대상 상금 500만 원</p>
                         </div>
@@ -269,18 +258,18 @@
 
             <div class="content-box">
                 <div class="flex flex-col md:flex-row flex-row-print gap-8">
-                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
+                    <div class="w-full md:w-5/12 w-5-12-print">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12 w-7-12-print">
-                        <span class="inline-block px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-xs font-bold mb-3">Episode 06</span>
+                    <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
+                        <span class="inline-block px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 06</span>
                         <h3 class="text-2xl font-black mb-4">농부의 검색기록</h3>
-                        <p class="text-slate-600 text-sm mb-6">스마트폰 검색창 설정을 통한 핵심 키워드 노출</p>
+                        <p class="text-slate-600 text-sm mb-6">스마트폰 검색창 설정을 통한 핵심 키워드 검색 유도</p>
                         <div class="bg-amber-50 p-6 rounded-2xl border-2 border-amber-100">
-                            <p class="text-sm font-bold text-amber-900">검색어: "경남 청년 성공 비결"</p>
+                            <p class="text-sm font-bold text-amber-900 text-center">검색어: "경남 청년 성공 비결"</p>
                         </div>
                     </div>
                 </div>
@@ -288,45 +277,26 @@
         </section>
 
         <!-- 4주차 섹션 -->
-        <section class="mb-12">
-            <h2 class="text-3xl font-black mb-6 flex items-center gap-3 text-slate-800">
+        <section class="mb-16">
+            <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-slate-800 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 04</span>
-                참여 마무리 및 비하인드
+                참여 마무리 및 라스트콜
             </h2>
             
             <div class="content-box">
                 <div class="flex flex-col md:flex-row flex-row-print gap-8">
-                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
+                    <div class="w-full md:w-5/12 w-5-12-print">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
-                    <div class="w-full md:w-7/12 w-7-12-print">
-                        <span class="inline-block px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold mb-3">Episode 07</span>
+                    <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
+                        <span class="inline-block px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 07</span>
                         <h3 class="text-2xl font-black mb-4">Only You! 지목 챌린지</h3>
-                        <p class="text-slate-600 text-sm mb-6">시청자를 직접 지목하는 강렬한 피날레</p>
+                        <p class="text-slate-600 text-sm mb-6">시청자를 직접 지목하며 즉각적인 신청을 유도하는 강렬한 엔딩</p>
                         <div class="bg-red-50 p-8 rounded-2xl text-center">
                             <p class="text-xl font-black text-red-600">"주인공은 바로 너!"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-box">
-                <div class="flex flex-col md:flex-row flex-row-print gap-8">
-                    <div class="w-full md:w-5/12 w-5-12-print space-y-4">
-                        <div class="ref-grid">
-                            <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
-                            <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
-                        </div>
-                    </div>
-                    <div class="w-full md:w-7/12 w-7-12-print">
-                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-xs font-bold mb-3">Episode 08</span>
-                        <h3 class="text-2xl font-black mb-4">담당자의 번아웃 (비하인드)</h3>
-                        <p class="text-slate-600 text-sm mb-6">친근감을 높이는 메이킹 및 비하인드 씬</p>
-                        <div class="bg-slate-50 p-6 rounded-2xl italic text-slate-500">
-                            "편집하다 밤샜어요... 하지만 여러분만 오신다면!"
                         </div>
                     </div>
                 </div>
@@ -334,7 +304,7 @@
         </section>
 
         <!-- 푸터 -->
-        <footer class="mt-12 pt-10 border-t-2 border-slate-200 flex justify-between items-center text-slate-400 pb-10">
+        <footer class="mt-12 pt-10 border-t-2 border-slate-200 flex justify-between items-center text-slate-400 pb-12">
             <p class="text-sm font-black text-slate-600 uppercase">MAY STUDIO</p>
             <p class="text-[10px]">ⓒ 2026 MAY STUDIO</p>
         </footer>
