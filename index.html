@@ -7,8 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
-        
         body {
             font-family: 'Noto Sans KR', sans-serif;
             background-color: #f1f5f9;
@@ -62,7 +60,7 @@
         @media print {
             @page {
                 size: A4;
-                margin: 0; /* 커스텀 여백을 위해 0으로 설정 후 내부 padding 조절 */
+                margin: 0;
             }
             body { 
                 background-color: white; 
@@ -71,7 +69,6 @@
             }
             .no-print { display: none; }
             
-            /* 첫 페이지 (타이틀) */
             header {
                 height: 100vh !important;
                 display: flex !important;
@@ -79,14 +76,15 @@
                 justify-content: center !important;
                 align-items: center !important;
                 margin: 0 !important;
-                border: none !important;
-                box-shadow: none !important;
                 page-break-after: always !important;
             }
 
-            /* 콘텐츠 시작 페이지 */
-            .main-content {
+            section {
+                height: 100vh !important;
                 padding: 20mm 15mm !important;
+                page-break-after: always !important;
+                display: flex !important;
+                flex-direction: column !important;
             }
 
             .flex-row-print {
@@ -103,11 +101,12 @@
                 box-shadow: none !important; 
                 border: 1px solid #cbd5e1 !important;
                 padding: 1.5rem !important;
+                flex-grow: 1;
             }
             
             .ref-image-box {
                 border: 1px dashed #94a3b8 !important;
-                height: 200px !important;
+                height: 180px !important;
                 aspect-ratio: auto !important;
             }
         }
@@ -115,12 +114,12 @@
 </head>
 <body class="p-0">
 
-    <!-- [PAGE 1] 메인 헤더 (인쇄 시 단독 페이지) -->
+    <!-- [PAGE 1] 메인 헤더 -->
     <header class="text-center relative py-20 md:py-32 bg-white md:rounded-[3rem] md:shadow-xl md:border-4 border-white overflow-hidden md:m-12">
         <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
         <div class="diary-sticker -top-2 left-12 text-blue-700">제작 기획서</div>
         
-        <p class="text-blue-600 font-black tracking-widest mb-6 text-lg">2026 GYEONGNAM YOUTH CONTEST</p>
+        <p class="text-blue-600 font-black tracking-widest mb-6 text-lg uppercase">2026 Gyeongnam Youth Contest</p>
         <h1 class="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tight leading-tight px-4">
             숏폼 홍보 영상<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">제작 세부 기획안</span>
         </h1>
@@ -137,10 +136,9 @@
         </div>
     </header>
 
-    <!-- [PAGE 2] 본문 시작 -->
     <div class="max-w-5xl mx-auto main-content px-6 md:px-0">
         
-        <!-- 1주차 섹션 -->
+        <!-- [PAGE 2] 1주차 섹션 -->
         <section class="mb-16">
             <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-blue-600 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 01</span>
@@ -158,9 +156,9 @@
                     <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
                         <span class="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 01</span>
                         <h3 class="text-2xl font-black mb-4">잠든 담당자의 '입' (코믹 홍보)</h3>
-                        <p class="text-slate-600 text-sm mb-6 italic">업무 중 잠든 담당자의 입 위에 위트 있는 합성 편집</p>
+                        <p class="text-slate-600 text-sm mb-6">책상에서 잠든 담당자의 입 위에 콘테스트 정보를 말하는 입술을 합성하여 시각적 재미와 정보를 동시에 전달</p>
                         <div class="bg-blue-50 p-5 rounded-2xl border-l-8 border-blue-500">
-                            <p class="text-sm font-medium leading-relaxed text-blue-900">"상금 500만 원, 방송 출연 기회까지! 경남 청년이라면 지금 신청하세요!"</p>
+                            <p class="text-sm font-medium leading-relaxed text-blue-900">"잠깐만요! 경남 청년이면 상금이 500만 원인데 잠이 오세요?"</p>
                         </div>
                     </div>
                 </div>
@@ -177,23 +175,22 @@
                     <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
                         <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 02</span>
                         <h3 class="text-2xl font-black mb-4">0원으로 마케팅하는 법?</h3>
-                        <p class="text-slate-600 text-sm mb-6">담당자가 직접 발로 뛰며 경남 곳곳에 포스터를 부착하는 리얼리티 숏폼</p>
+                        <p class="text-slate-600 text-sm mb-6">홍보 예산 절감을 위해 담당자가 직접 경남 주요 거점에 포스터를 붙이는 리얼리티 영상. '진정성'을 테마로 노출 극대화</p>
                         <div class="bg-slate-100 p-8 rounded-2xl text-center">
-                            <p class="text-xl font-black text-slate-800">"포스터 100장 붙이기 챌린지"</p>
+                            <p class="text-xl font-black text-slate-800">"발로 뛰는 담당자: 100장 클리어"</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2주차 섹션 -->
+        <!-- [PAGE 3] 2주차 섹션 -->
         <section class="mb-16">
             <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-pink-500 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 02</span>
                 혜택 소구 및 감성 공감
             </h2>
             
-            <!-- 위치 변경됨: 담당자의 번아웃 -->
             <div class="content-box">
                 <div class="flex flex-col md:flex-row flex-row-print gap-8">
                     <div class="w-full md:w-5/12 w-5-12-print">
@@ -205,9 +202,9 @@
                     <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
                         <span class="inline-block px-3 py-1 bg-slate-900 text-white rounded-full text-xs font-bold mb-3 w-fit">Episode 03 (Humanity)</span>
                         <h3 class="text-2xl font-black mb-4">담당자의 번아웃 (현실 고증)</h3>
-                        <p class="text-slate-600 text-sm mb-6 italic">공공기관 담당자의 인간적인 면모를 보여주며 친근감 형성</p>
+                        <p class="text-slate-600 text-sm mb-6">야근과 편집에 지친 담당자의 모습을 가감 없이 노출. '힘든 건 내가 할 테니 신청은 청년들이'라는 메시지로 유대감 형성</p>
                         <div class="bg-slate-900 p-6 rounded-2xl">
-                            <p class="text-sm text-slate-300 italic">"편집하다 밤샜어요... 하지만 여러분만 신청하신다면 전 괜찮습니다!"</p>
+                            <p class="text-sm text-slate-300 italic">"신청서가 너무 안 들어와서 눈물이 앞을 가립니다... 제발 신청 좀!"</p>
                         </div>
                     </div>
                 </div>
@@ -224,16 +221,16 @@
                     <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
                         <span class="inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 04</span>
                         <h3 class="text-2xl font-black mb-4">쿵쿵! 점프 트랜지션</h3>
-                        <p class="text-slate-600 text-sm mb-6">화면이 물리적으로 내려오는 연출을 통한 핵심 혜택 강조</p>
+                        <p class="text-slate-600 text-sm mb-6">화면이 위에서 아래로 쿵쿵 떨어지며 핵심 혜택(상금, 멘토링, 방송 지원)을 자막으로 때려 박는 임팩트 강조 연출</p>
                         <div class="bg-pink-50 p-6 rounded-2xl text-center border-l-8 border-pink-500">
-                            <p class="text-lg font-black text-pink-900">7월 31일 모집 마감!</p>
+                            <p class="text-lg font-black text-pink-900">상금 500만원 + 전문가 멘토링</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 3주차 섹션 -->
+        <!-- [PAGE 4] 3주차 섹션 -->
         <section class="mb-16">
             <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-indigo-600 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 03</span>
@@ -248,9 +245,9 @@
                     <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
                         <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 05</span>
                         <h3 class="text-2xl font-black mb-4">우주항공의 '하늘 자막'</h3>
-                        <p class="text-slate-600 text-sm mb-6">트래킹 자막을 활용한 미래지향적 연출 및 상금 소구</p>
+                        <p class="text-slate-600 text-sm mb-6">경남 사천의 우주항공 테마를 살려 드론 캠으로 촬영한 하늘 위에 '경남 청년의 꿈'을 3D 트래킹 자막으로 웅장하게 배치</p>
                         <div class="bg-indigo-900 p-8 rounded-2xl text-center">
-                            <p class="text-lg font-black text-white">대상 상금 500만 원</p>
+                            <p class="text-lg font-black text-white">경남의 미래, 당신의 성장</p>
                         </div>
                     </div>
                 </div>
@@ -267,16 +264,16 @@
                     <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
                         <span class="inline-block px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 06</span>
                         <h3 class="text-2xl font-black mb-4">농부의 검색기록</h3>
-                        <p class="text-slate-600 text-sm mb-6">스마트폰 검색창 설정을 통한 핵심 키워드 검색 유도</p>
-                        <div class="bg-amber-50 p-6 rounded-2xl border-2 border-amber-100">
-                            <p class="text-sm font-bold text-amber-900 text-center">검색어: "경남 청년 성공 비결"</p>
+                        <p class="text-slate-600 text-sm mb-6">청년 농부가 밭에서 일하다가 검색창에 '경남 청년 성공'을 검색하는 UI 연출. 스마트한 경남 청년의 이미지를 세련되게 전달</p>
+                        <div class="bg-amber-50 p-6 rounded-2xl border-2 border-amber-100 text-center">
+                            <p class="text-sm font-bold text-amber-900">"성공한 경남 청년의 공통점은?"</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 4주차 섹션 -->
+        <!-- [PAGE 5] 4주차 섹션 -->
         <section class="mb-16">
             <h2 class="text-3xl font-black mb-8 flex items-center gap-3 text-slate-800">
                 <span class="bg-slate-800 text-white px-4 py-1 rounded-2xl text-base align-middle">WEEK 04</span>
@@ -286,25 +283,41 @@
             <div class="content-box">
                 <div class="flex flex-col md:flex-row flex-row-print gap-8">
                     <div class="w-full md:w-5/12 w-5-12-print">
+                        <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
+                    </div>
+                    <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
+                        <span class="inline-block px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 07 (B-Roll)</span>
+                        <h3 class="text-2xl font-black mb-4">경남 청춘의 B-roll</h3>
+                        <p class="text-slate-600 text-sm mb-6">콘테스트를 준비하는 청년들의 열정적인 순간들을 감성적인 시티팝 비트에 맞춰 몽타주 기법으로 편집. '나도 할 수 있다'는 동기부여</p>
+                        <div class="bg-emerald-50 p-6 rounded-2xl">
+                            <p class="text-sm font-bold text-emerald-900">당신의 평범한 일상이 특별한 브랜드가 됩니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="flex flex-col md:flex-row flex-row-print gap-8">
+                    <div class="w-full md:w-5/12 w-5-12-print">
                         <div class="ref-grid">
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                             <div class="ref-image-box text-[10px] text-slate-400 p-2 text-center"></div>
                         </div>
                     </div>
                     <div class="w-full md:w-7/12 w-7-12-print flex flex-col justify-center">
-                        <span class="inline-block px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 07</span>
+                        <span class="inline-block px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold mb-3 w-fit">Episode 08</span>
                         <h3 class="text-2xl font-black mb-4">Only You! 지목 챌린지</h3>
-                        <p class="text-slate-600 text-sm mb-6">시청자를 직접 지목하며 즉각적인 신청을 유도하는 강렬한 엔딩</p>
+                        <p class="text-slate-600 text-sm mb-6">출연진들이 화면을 향해 손가락을 가리키며 "다음은 당신 차례입니다!"라고 외치는 강렬한 라스트콜. 마감 임박 알림 결합</p>
                         <div class="bg-red-50 p-8 rounded-2xl text-center">
-                            <p class="text-xl font-black text-red-600">"주인공은 바로 너!"</p>
+                            <p class="text-xl font-black text-red-600 italic">"7월 31일, 오늘이 마지막 기회!"</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 푸터 -->
-        <footer class="mt-12 pt-10 border-t-2 border-slate-200 flex justify-between items-center text-slate-400 pb-12">
+        <!-- 푸터 (웹 뷰용) -->
+        <footer class="mt-12 pt-10 border-t-2 border-slate-200 flex justify-between items-center text-slate-400 pb-12 no-print">
             <p class="text-sm font-black text-slate-600 uppercase">MAY STUDIO</p>
             <p class="text-[10px]">ⓒ 2026 MAY STUDIO</p>
         </footer>
